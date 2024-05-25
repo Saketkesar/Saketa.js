@@ -28,7 +28,7 @@ To use RobotCaptcha, include the library in your HTML file and initialize it:
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-    <script src="https://yourusername.github.io/robot-captcha/robot-captcha.js"></script>
+    <script src="https://saketkesar.github.io/Saketa.js/saketa.js"></script>
     <script>
         window.onload = () => {
             new RobotCaptcha();
