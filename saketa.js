@@ -1,17 +1,18 @@
-class SecurityManager {
+class RobotCaptcha {
     constructor() {
         this.init();
     }
 
     init() {
-        this.showLoadingScreen(); // Show loading screen at the start
+        this.showLoadingScreen();
         setTimeout(() => {
-            this.removeLoadingScreen(); // Remove after 3 seconds
+            this.removeLoadingScreen();
             this.detectBotAndAttacks();
             this.disableRightClickAndKeys();
             this.ddosProtection();
             this.preventDevTools();
-        }, 3000); // 3-second delay
+            this.showMainContent();
+        }, 3000);
     }
 
     showLoadingScreen() {
@@ -31,12 +32,10 @@ class SecurityManager {
             flex-direction: column;
         `;
 
-        // Security check text
         const loadingText = document.createElement('h1');
         loadingText.textContent = 'Security Check';
         loadingText.style.cssText = 'font-size: 24px; color: black; margin-bottom: 20px;';
 
-        // Animated round button
         const loadingButton = document.createElement('div');
         loadingButton.id = 'loading-button';
         loadingButton.style.cssText = `
@@ -48,18 +47,15 @@ class SecurityManager {
             animation: spin 1s linear infinite;
         `;
 
-        // Label below button
         const label = document.createElement('p');
         label.textContent = 'saketa.js created using AI by Saket Kesar';
         label.style.cssText = 'font-size: 16px; color: black; margin-top: 20px;';
 
-        // Append elements to loading screen
         loadingScreen.appendChild(loadingText);
         loadingScreen.appendChild(loadingButton);
         loadingScreen.appendChild(label);
         document.body.appendChild(loadingScreen);
 
-        // Animation for button spin
         const style = document.createElement('style');
         style.textContent = `
             @keyframes spin {
@@ -80,7 +76,7 @@ class SecurityManager {
     detectBotAndAttacks() {
         let requestCount = 0;
         const maxRequests = 10;
-        const timeWindow = 60000; // 1 minute
+        const timeWindow = 60000;
         const attacks = ['<script', 'SELECT * FROM', 'INSERT INTO', 'DELETE FROM', '--', 'DROP TABLE'];
 
         setInterval(() => {
@@ -103,12 +99,10 @@ class SecurityManager {
             }
         });
 
-        // Proxy and VPN detection (basic implementation)
         fetch('https://api.ipify.org?format=json')
             .then(response => response.json())
             .then(data => {
                 const ip = data.ip;
-                // Use a proxy/VPN detection API service here
                 fetch(`https://proxycheck.io/v2/${ip}`)
                     .then(response => response.json())
                     .then(result => {
@@ -129,7 +123,7 @@ class SecurityManager {
                             clearInterval(interval);
                         }
                     });
-            }, 5000); // Check every 5 seconds
+            }, 5000);
         });
     }
 
@@ -155,7 +149,6 @@ class SecurityManager {
     }
 
     preventDevTools() {
-        // Detect if DevTools is open (basic technique)
         const element = new Image();
         Object.defineProperty(element, 'id', {
             get: () => {
@@ -165,6 +158,13 @@ class SecurityManager {
         });
         console.log(element);
     }
+
+    showMainContent() {
+        const mainContent = document.getElementById('main-content');
+        if (mainContent) {
+            mainContent.style.display = 'block';
+        }
+    }
 }
 
-window.SecurityManager = new SecurityManager();
+window.RobotCaptcha = RobotCaptcha;
